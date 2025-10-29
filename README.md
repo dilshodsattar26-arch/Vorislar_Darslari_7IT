@@ -1,0 +1,1 @@
+# Vorislar_Darslari_7IT
