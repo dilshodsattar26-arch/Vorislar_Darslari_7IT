@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Super Matematik Loyiha</title>
+
+<style>
+body{font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;color:#fff}
+.container{max-width:900px;margin:auto;padding:20px}
+.card{background:#ffffff15;padding:20px;margin:20px 0;border-radius:18px}
+h1,h2{text-align:center}
+input,button{padding:10px;margin:6px;border:none;border-radius:10px;font-size:16px}
+button{background:#00c6ff;color:#fff;cursor:pointer}
+canvas{background:#fff;border-radius:10px;margin-top:10px}
+.correct{color:#00ff9d}
+.wrong{color:#ff6b6b}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>🧠 SUPER MATEMATIKA LOYIHASI</h1>
+
+<!-- GRAFIK -->
+<div class="card">
+<h2>📊 Grafik chizish (y = ax²)</h2>
+a: <input id="a" type="number" value="1">
+<button onclick="drawGraph()">Chizish</button>
+<br>
+<canvas id="graph" width="600" height="300"></canvas>
+</div>
+
+<!-- TEST -->
+<div class="card">
+<h2>🧠 Mantiqiy test</h2>
+<div id="q"></div>
+<input id="ans" placeholder="Javob">
+<button onclick="checkTest()">Tekshirish</button>
+<div id="tRes"></div>
+</div>
+
+<!-- O‘YIN -->
+<div class="card">
+<h2>🎮 Matematik o‘yin (10 soniyada)</h2>
+<div id="gameQ"></div>
+<input id="gameAns" placeholder="Javob">
+<button onclick="checkGame()">OK</button>
+<div id="score">Ball: 0</div>
+</div>
+
+<!-- PDF -->
+<div class="card">
+<h2>🧾 PDF hisobot</h2>
+<button onclick="makePDF()">PDF yuklab olish</button>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+// ===== GRAFIK =====
+function drawGraph(){
+const a=parseFloat(document.getElementById('a').value);
+const c=document.getElementById('graph');
+const ctx=c.getContext('2d');
+ctx.clearRect(0,0,c.width,c.height);
+ctx.beginPath();
+for(let x=-300;x<300;x++){
+let y=a*(x/50)*(x/50);
+ctx.lineTo(x+300,150-y*50);
+}
+ctx.strokeStyle="#00f";
+ctx.stroke();
+}
+drawGraph();
+
+// ===== TEST =====
+let tx=Math.floor(Math.random()*10)+1;
+let ty=Math.floor(Math.random()*10)+1;
+q.textContent=`${tx}+${ty} = ?`;
+function checkTest(){
+const v=parseInt(ans.value);
+if(v===tx+ty){tRes.textContent='To\'g\'ri';tRes.className='correct'}
+else{tRes.textContent='Noto\'g\'ri';tRes.className='wrong'}
+}
+
+// ===== O‘YIN =====
+let score=0,gx,gy;
+function newGame(){
+gx=Math.floor(Math.random()*10);
+gy=Math.floor(Math.random()*10);
+gameQ.textContent=`${gx} × ${gy} = ?`;
+gameAns.value='';
+}
+newGame();
+
+function checkGame(){
+if(parseInt(gameAns.value)===gx*gy){score++;scoreDiv.textContent='Ball: '+score}
+newGame();
+}
+const scoreDiv=document.getElementById('score');
+
+// ===== PDF =====
+function makePDF(){
+const {jsPDF}=window.jspdf;
+const pdf=new jsPDF();
+pdf.text('Matematika loyiha hisoboti',20,20);
+pdf.text('Test savoli: '+tx+'+'+ty,20,40);
+pdf.text('O\'yin bali: '+score,20,60);
+pdf.save('hisobot.pdf');
+}
+</script>
+</body>
+</html>
