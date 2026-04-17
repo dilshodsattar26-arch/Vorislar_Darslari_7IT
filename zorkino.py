@@ -8,6 +8,9 @@ ADMIN_ID = 7253285947
 
 bot = telebot.TeleBot(TOKEN)
 
+
+
+
 # ===== DATABASE =====
 if not os.path.exists("db.json"):
     with open("db.json", "w") as f:
