@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sattorov Dilshodbek | Dasturchi</title>
+  <style>
+    /* ================= RESET & BASE ================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+      color: #f0f0f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* ================= UTILITIES ================= */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      position: relative;
+      color: #fff;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 3px;
+      background: #ccc;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    
+    /* ================= HEADER & NAV ================= */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid #444;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .logo span { color: #ccc; }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ccc;
+      transition: 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: #ccc; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: radial-gradient(circle at 30% 40%, #2a2a2a 0%, transparent 60%),
+                  radial-gradient(circle at 70% 70%, #333 0%, transparent 60%);
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    .hero-text h1 span { color: #ccc; }
+    .hero-text .subtitle {
+      font-size: 1.3rem;
+      color: #bbb;
+      margin-bottom: 25px;
+    }
+    .hero-text p {
+      color: #ddd;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+    }
+    .social-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .social-btn:hover {
+      background: #444;
+      border-color: #888;
+      transform: translateY(-3px);
+    }
+    .hero-image {
+      display: flex;
+      justify-content: center;
+    }
+    .profile-pic {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 4px solid #444;
+      object-fit: cover;
+      background: linear-gradient(45deg, #222, #444);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: #888;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      transition: 0.4s;
+    }
+    .profile-pic:hover {
+      border-color: #888;
+      transform: scale(1.03);
+    }
+    
+    /* ================= ABOUT ================= */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .about-text p {
+      margin-bottom: 20px;
+      color: #ddd;
+      font-size: 1.05rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    .skill-item {
+      background: #2a2a2a;
+      padding: 15px 20px;
+      border-radius: 10px;
+      border-left: 3px solid #777;
+      transition: 0.3s;
+    }
+    .skill-item:hover {
+      background: #333;
+      border-left-color: #ccc;
+      transform: translateX(5px);
+    }
+    .skill-item strong { color: #fff; }
+    
+    /* ================= CONTACT ================= */
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .contact-card {
+      background: #2a2a2a;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid #444;
+      transition: 0.3s;
+    }
+    .contact-card:hover {
+      transform: translateY(-8px);
+      border-color: #777;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+    .contact-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+    .contact-card h3 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .contact-card a {
+      color: #bbb;
+      word-break: break-all;
+    }
+    .contact-card a:hover { color: #fff; }
+    
+    /* ================= FOOTER ================= */
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      border-top: 1px solid #444;
+      color: #999;
+      font-size: 0.95rem;
+    }
+    
+    /* ================= ANIMATIONS ================= */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate { animation: fadeInUp 0.6s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .hero-content, .about-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-image { order: -1; }
+      .social-links { justify-content: center; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .profile-pic { width: 220px; height: 220px; font-size: 3rem; }
+      .hero-text h1 { font-size: 2.3rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 70%;
+        height: calc(100vh - 70px);
+        background: #1a1a1a;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        transition: 0.4s;
+        border-left: 1px solid #444;
+      }
+      .nav-links.active { right: 0; }
+      .hamburger { display: flex; }
+      .section { padding: 60px 0; }
+      .section-title { font-size: 1.8rem; }
+      .profile-pic { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Dilshod<span>.</span></div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Bosh sahifa</a></li>
+          <li><a href="#about">Men haqimda</a></li>
+          <li><a href="#skills">Ko'nikmalar</a></li>
+          <li><a href="#contact">Aloqa</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text animate">
+          <h1>Salom, men <span>Sattorov Dilshodbek</span></h1>
+          <p class="subtitle">Dasturchi | HTML • CSS • JavaScript</p>
+          <p>Men zamonaviy veb-ilovalar yaratishni o'rganayotgan dasturchiman. Har bir loyihada yangi narsalarni o'rganish va sifatli kod yozishga intilaman.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/mobile_games.uz" target="_blank" class="social-btn">📷 Instagram</a>
+            <a href="https://t.me/unknownchat3" target="_blank" class="social-btn">✈️ Telegram</a>
+            <a href="https://github.com/dilshodsattar26-arch" target="_blank" class="social-btn">💻 GitHub</a>
+          </div>
+        </div>
+        <div class="hero-image animate delay-1">
+          <!-- RASM JOYI: O'z rasmingizni qo'ying yoki shu joyda avatar qolsin -->
+          <img src="https://i.ibb.co/VcBhc7Jw/photo-2026-03-06-17-34-45.jpg" class="profile-pic" alt="Dilshodbek">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title animate">Men haqimda</h2>
+      <div class="about-content">
+        <div class="about-text animate delay-1">
+          <p>Assalomu alaykum! Men <strong>Sattorov Dilshodbek</strong>, O'zbekistondan dasturchiman. Veb-dasturlash sohasida faoliyat yuritaman va doimiy ravishda o'z bilimlerimni oshirib boraman.</p>
+          <p>HTML, CSS va JavaScript texnologiyalari yordamida zamonaviy, foydalanuvchi uchun qulay veb-saytlar yaratishni maqsad qilganman. Har bir loyiha — bu yangi tajriba va o'sish imkoniyati.</p>
+          <p>Bo'sh vaqtlarimda ochiq manbali loyihalarda ishtirok etish, yangi texnologiyalarni o'rganish va jamoada ishlashni yaxshi ko'raman.</p>
+        </div>
+        <div class="about-skills animate delay-2">
+          <div class="skills-grid">
+            <div class="skill-item"><strong>HTML5</strong><br><small>Semantik, SEO-friendly</small></div>
+            <div class="skill-item"><strong>CSS3</strong><br><small>Flexbox, Grid, Animations</small></div>
+            <div class="skill-item"><strong>JavaScript</strong><br><small>ES6+, DOM, Events</small></div>
+            <div class="skill-item"><strong>Responsive</strong><br><small>Mobile-first dizayn</small></div>
+            <div class="skill-item"><strong>Git & GitHub</strong><br><small>Versiya nazorati</small></div>
+            <div class="skill-item"><strong>UI/UX Asoslari</strong><br><small>Foydalanuvchi tajribasi</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section class="section" id="skills" style="background: #222;">
+    <div class="container">
+      <h2 class="section-title animate">Texnologiyalar</h2>
+      <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="skill-item animate"><strong>HTML</strong><br><small>Structure & Semantics</small></div>
+        <div class="skill-item animate delay-1"><strong>CSS</strong><br><small>Styling & Layouts</small></div>
+        <div class="skill-item animate delay-2"><strong>JavaScript</strong><br><small>Logic & Interactivity</small></div>
+        <div class="skill-item animate"><strong>Responsive Design</strong><br><small>Mobile & Desktop</small></div>
+        <div class="skill-item animate delay-1"><strong>Git</strong><br><small>Version Control</small></div>
+        <div class="skill-item animate delay-2"><strong>Problem Solving</strong><br><small>Algorithmic Thinking</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title animate">Aloqa</h2>
+      <div class="contact-cards">
+        <div class="contact-card animate">
+          <div class="icon">📷</div>
+          <h3>Instagram</h3>
+          <a href="https://instagram.com/mobile_games.uz" target="_blank">@mobile_games.uz</a>
+        </div>
+        <div class="contact-card animate delay-1">
+          <div class="icon">✈️</div>
+          <h3>Telegram</h3>
+          <a href="https://t.me/unknownchat3" target="_blank">t.me/unknownchat3</a>
+        </div>
+        <div class="contact-card animate delay-2">
+          <div class="icon">💻</div>
+          <h3>GitHub</h3>
+          <a href="https://github.com/dilshodsattar26-arch" target="_blank">github.com/dilshodsattar26-arch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Sattorov Dilshodbek. Barcha huquqlar himoyalangan.</p>
+      <p style="margin-top: 8px; font-size: 0.9rem;">HTML • CSS • JavaScript bilan ❤️ yaratildi</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // Animation on scroll (simple version)
+    const animateElements = document.querySelectorAll('.animate');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    animateElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+    
+    // Profile picture click effect
+    const profilePic = document.getElementById('profilePic');
+    if (profilePic) {
+      profilePic.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+      });
+    }
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+      } else {
+        header.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
